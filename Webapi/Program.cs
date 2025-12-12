@@ -15,7 +15,7 @@ QuestPDF.Settings.License = LicenseType.Community;
 
 var cadenaconexion = builder.Configuration.GetConnectionString("CadenaConexionDB");
 builder.Services.AddDbContext<Connectioncontextdb>(options =>
-    options.UseSqlServer(cadenaconexion));
+    options.UseSqlite(cadenaconexion));
 
 var permitirtodo = "_permitirtodo";
 builder.Services.AddCors(options =>
@@ -94,5 +94,10 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<NotificationsHub>("/hub/notifications");
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<Connectioncontextdb>();
+    db.Database.Migrate();
+}
 
 app.Run();
