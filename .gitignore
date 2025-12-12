@@ -1,0 +1,45 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Electron
+Electron/node_modules/
+Electron/dist/ 
+Electron/resources/react/
+Electron/resources/api/
+Electron/**/*.exe
+Electron/**/*.msi
+Electron/**/*.asar
+Electron/**/win-unpacked/
+
+# =========================
+# .NET / ASP.NET Core
+# =========================
+Webapi/bin/
+Webapi/obj/
+*.dll
+*.pdb
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# Editor / OS
+# =========================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
