@@ -5,6 +5,7 @@ import {
   updatecategories,
   deletecategories,
 } from "../api/categorias";
+import notify, { confirmdialog } from "../components/solucionador";
 
 function Categorias() {
   const [categorias, setCategorias] = useState([]);
@@ -36,17 +37,17 @@ function Categorias() {
       !editando &&
       categorias.some((cat) => cat.name?.toLowerCase() === nombre.toLowerCase())
     ) {
-      alert("La categoría ya existe");
+      notify("La categoría ya existe");
       return;
     }
 
     if (editando) {
       await updatecategories(editando.id, { name: nombre });
-      alert("Categoria actualizada con exito");
+      notify("Categoria actualizada con exito");
       setEditando(null);
     } else {
       await createcategories({ name: nombre });
-      alert("Categoria creada con exito");
+      notify("Categoria creada con exito");
     }
 
     setNombre("");
@@ -54,12 +55,12 @@ function Categorias() {
   };
 
   const eliminarCategoria = async (id) => {
-    const confirmar = window.confirm(
+    const confirmar = await confirmdialog(
       "¿Estás seguro de que deseas eliminar esta categoría?"
     );
     if (!confirmar) return;
     await deletecategories(id);
-    alert("Categoría eliminada con éxito");
+    notify("Categoría eliminada con éxito");
     await cargarCategorias();
   };
 

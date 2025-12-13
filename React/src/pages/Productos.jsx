@@ -7,6 +7,7 @@ import {
   updateproducto,
 } from "../api/productos";
 import { getcategories } from "../api/categorias";
+import notify, { confirmdialog } from "../components/solucionador";
 
 function Producto() {
   const [productos, setProductos] = useState([]);
@@ -19,7 +20,6 @@ function Producto() {
     imagen: "",
   });
 
-  // id del producto que se está editando (null = modo crear)
   const [editando, seteditando] = useState(null);
 
   useEffect(() => {
@@ -40,60 +40,58 @@ function Producto() {
     const { name, value } = e.target;
     setNuevoProducto((prev) => ({ ...prev, [name]: value }));
   };
-const guardarproducto = async (e) => {
-  e.preventDefault();
+  const guardarproducto = async (e) => {
+    e.preventDefault();
 
-  const productoDataBase = {
-    name: nuevoproducto.nombre,
-    price: parseFloat(nuevoproducto.precio),
-    categoryId: parseInt(nuevoproducto.categoriaid),
-    stock: parseInt(nuevoproducto.stock),
-    imageUrl: nuevoproducto.imagen || null,
+    const productoDataBase = {
+      name: nuevoproducto.nombre,
+      price: parseFloat(nuevoproducto.precio),
+      categoryId: parseInt(nuevoproducto.categoriaid),
+      stock: parseInt(nuevoproducto.stock),
+      imageUrl: nuevoproducto.imagen || null,
+    };
+
+    const productoData =
+      editando !== null
+        ? { ...productoDataBase, id: editando }
+        : productoDataBase;
+
+    try {
+      if (editando !== null) {
+        await updateproducto(editando, productoData);
+        notify("Producto actualizado exitosamente");
+      } else {
+        await createproducto(productoData);
+        notify("Producto creado exitosamente");
+      }
+
+      const update = await getproductos();
+      setProductos(update);
+
+      setNuevoProducto({
+        nombre: "",
+        precio: "",
+        stock: "",
+        categoriaid: "",
+        imagen: "",
+      });
+
+      seteditando(null);
+    } catch (error) {
+      console.error("Error al guardar producto:", error);
+      notify(error.message || "Error al guardar producto");
+    }
   };
 
-  // 👇 si estoy editando, mando también el id dentro del JSON
-  const productoData =
-    editando !== null
-      ? { ...productoDataBase, id: editando }
-      : productoDataBase;
-
-  try {
-    if (editando !== null) {
-      await updateproducto(editando, productoData);
-      alert("Producto actualizado exitosamente");
-    } else {
-      await createproducto(productoData);
-      alert("Producto creado exitosamente");
-    }
-
-    const update = await getproductos();
-    setProductos(update);
-
-    setNuevoProducto({
-      nombre: "",
-      precio: "",
-      stock: "",
-      categoriaid: "",
-      imagen: "",
-    });
-
-    seteditando(null);
-  } catch (error) {
-    console.error("Error al guardar producto:", error);
-    alert(error.message || "Error al guardar producto");
-  }
-};
-
-
   const eliminarProducto = async (id) => {
-    if (window.confirm("¿Estás seguro de eliminar este producto?")) {
+    if (await confirmdialog("¿Estás seguro de eliminar este producto?")) {
       try {
         await deleteproducto(id);
         setProductos((prev) => prev.filter((p) => p.id !== id));
-        alert("Producto eliminado exitosamente");
+        notify("Producto eliminado exitosamente");
       } catch (error) {
         console.error("Error al eliminar producto:", error);
-        alert("Error al eliminar producto");
+        notify("Error al eliminar producto");
       }
     }
   };
@@ -103,7 +101,7 @@ const guardarproducto = async (e) => {
       nombre: producto.name,
       precio: producto.price,
       stock: producto.stock,
-      categoriaid: String(producto.categoryId), 
+      categoriaid: String(producto.categoryId),
       imagen: producto.imageUrl || "",
     });
     seteditando(producto.id); // aquí guardamos el id que luego usamos en update

@@ -4,6 +4,7 @@ import VentaList from "../components/VentaList";
 import { getSales } from "../api/sales";
 import { exportSaleTicketPdf } from "../api/reports";
 import "../css/Venta.css";
+import notify from "../components/solucionador";
 
 function Venta() {
   const [ventas, setVentas] = useState([]);
@@ -42,7 +43,7 @@ function Venta() {
       await exportSaleTicketPdf(venta.id);
     } catch (err) {
       console.error(err);
-      alert("Error al generar el ticket");
+      notify("Error al generar el ticket");
     }
   };
 
@@ -88,10 +89,7 @@ function Venta() {
           </div>
         </div>
 
-        <VentaList
-          ventas={ventasFiltradas}
-          onVerTicket={manejarVerTicket}
-        />
+        <VentaList ventas={ventasFiltradas} onVerTicket={manejarVerTicket} />
 
         {mostrarModal && (
           <VentaModal

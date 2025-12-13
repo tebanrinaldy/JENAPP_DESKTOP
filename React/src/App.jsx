@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import ReporteVenta from "./pages/ReportesVentas.jsx";
 import SeguimientoPedido from "./pages/SeguimientoPedidoPublico.jsx";
+import useFocusFix from "./components/useFocusFix.js";
 
 function StartRoute() {
   const isLogged = Boolean(localStorage.getItem("user"));
@@ -18,31 +19,74 @@ function StartRoute() {
 }
 
 function App() {
+  useFocusFix();
+
   return (
     <Routes>
-      
       <Route path="/publico" element={<Publico />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-     <Route path="/seguimiento/:code" element={<SeguimientoPedido />} />
-<Route path="/seguimiento/telefono/:phone" element={<SeguimientoPedido />} />
+      <Route path="/seguimiento/:code" element={<SeguimientoPedido />} />
+      <Route
+        path="/seguimiento/telefono/:phone"
+        element={<SeguimientoPedido />}
+      />
 
-      
       <Route element={<MainLayout />}>
-        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path="/productos" element={<PrivateRoute><Productos /></PrivateRoute>} />
-        <Route path="/venta" element={<PrivateRoute><Venta /></PrivateRoute>} />
-        <Route path="/categorias" element={<PrivateRoute><Categorias /></PrivateRoute>} />
-        <Route path="/inventario" element={<PrivateRoute><Inventario /></PrivateRoute>} />
-        <Route path="/reportes-ventas" element={<PrivateRoute><ReporteVenta /></PrivateRoute>} />
-
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/productos"
+          element={
+            <PrivateRoute>
+              <Productos />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/venta"
+          element={
+            <PrivateRoute>
+              <Venta />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/categorias"
+          element={
+            <PrivateRoute>
+              <Categorias />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/inventario"
+          element={
+            <PrivateRoute>
+              <Inventario />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/reportes-ventas"
+          element={
+            <PrivateRoute>
+              <ReporteVenta />
+            </PrivateRoute>
+          }
+        />
       </Route>
 
-      
       <Route path="/" element={<StartRoute />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
 
-export default App;
+export default App;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createuser, getusers } from "../api/users";
 import "../css/Register.css";
+import notify from "../components/solucionador";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -12,12 +13,11 @@ function Register() {
     e.preventDefault();
 
     try {
-      // Si tu API requiere token para obtener usuarios, puedes omitir esta parte
       const users = await getusers();
       const userexists = users.some((u) => u.username === username);
 
       if (userexists) {
-        alert("ERROR... El usuario ya existe");
+        notify("ERROR... El usuario ya existe");
         return;
       }
 
@@ -27,14 +27,14 @@ function Register() {
       });
 
       if (result) {
-        alert("Usuario registrado con éxito");
+        notify("Usuario registrado con éxito");
         navigate("/login");
       } else {
-        alert("Error al registrar usuario");
+        notify("Error al registrar usuario");
       }
     } catch (error) {
       console.error("Error en el registro:", error);
-      alert("Ocurrió un error al registrar el usuario");
+      notify("Ocurrió un error al registrar el usuario");
     }
   };
 

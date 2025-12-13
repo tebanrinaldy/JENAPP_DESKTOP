@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getproductos } from "../api/productos";
 import { registrarMovimiento, getMovimientos } from "../api/inventario";
+import notify from "../components/solucionador";
 
 function Inventario() {
   const [productos, setProductos] = useState([]);
@@ -32,7 +33,7 @@ function Inventario() {
     const cantNum = parseInt(cantidad);
 
     if (!productoId || cantNum <= 0) {
-      alert("Por favor, completa todos los campos correctamente.");
+      notify("Por favor, completa todos los campos correctamente.");
       return;
     }
     const movimiento = {
@@ -44,12 +45,12 @@ function Inventario() {
 
     try {
       await registrarMovimiento(movimiento);
-      alert("Movimiento registrado exitosamente");
+      notify("Movimiento registrado exitosamente");
       setCantidad("");
       setRazon("");
       cargarDatos();
     } catch (error) {
-      alert(error.message);
+      notify(error.message);
     }
   };
   const movimientosFiltrados = fechaFiltro

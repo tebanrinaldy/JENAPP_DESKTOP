@@ -7,6 +7,7 @@ import {
   exportSalesReportPdf,
   exportSaleTicketPdf,
 } from "../api/reports";
+import notify from "../components/solucionador";
 
 function ReportesVentas() {
   const [modo, setModo] = useState("dia");
@@ -33,19 +34,19 @@ function ReportesVentas() {
 
   const buscar = async () => {
     const fechas = obtenerFechas();
-    if (!fechas) return alert("Seleccione fechas válidas");
+    if (!fechas) return notify("Seleccione fechas válidas");
 
     try {
       const data = await getSalesReport(fechas.from, fechas.to);
       setReporte(data);
     } catch (err) {
-      alert("Error al cargar el reporte");
+      notify("Error al cargar el reporte");
     }
   };
 
   const exportarPdf = () => {
     const fechas = obtenerFechas();
-    if (!fechas) return alert("Seleccione fechas válidas");
+    if (!fechas) return notify("Seleccione fechas válidas");
 
     exportSalesReportPdf(fechas.from, fechas.to);
   };

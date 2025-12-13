@@ -4,6 +4,7 @@ import CategoriaSelector from "../components/CategoriaSelector";
 import VentaForm from "../components/VentaForm";
 import "../css/PedidoPublico.css";
 import { BASE_API_URL } from "../api/baseurl";
+import notify from "../components/solucionador";
 
 const WHATSAPP_PHONE = "573043769901";
 
@@ -92,7 +93,7 @@ function PedidoPublico() {
       setClienteData(null);
     } catch (err) {
       console.error("Error en handleConfirm:", err);
-      alert("Error al enviar el pedido");
+      notify("Error al enviar el pedido");
     } finally {
       setLoading(false);
     }
@@ -173,7 +174,7 @@ Teléfono: ${clienteData.phone || ""}
                     .value.trim();
 
                   if (!code && !phone) {
-                    alert("Ingresa un código o un teléfono.");
+                    notify("Ingresa un código o un teléfono.");
                     return;
                   }
 

@@ -3,6 +3,7 @@ import { Button, Card, Row, Col } from "react-bootstrap";
 import { getcategories } from "../api/categorias";
 import { getproductos } from "../api/productos";
 import "../css/CategoriaSelector.css";
+import notify from "../components/solucionador";
 
 function CategoriaSelector({ carrito, setCarrito }) {
   const [categorias, setCategorias] = useState([]);
@@ -36,14 +37,14 @@ function CategoriaSelector({ carrito, setCarrito }) {
 
   const agregarAlCarrito = (producto) => {
     if (producto.stock <= 0) {
-      alert("No hay stock disponible para este producto.");
+      notify("No hay stock disponible para este producto.");
       return;
     }
 
     const existe = carrito.find((item) => item.id === producto.id);
     if (existe) {
       if (existe.cantidad >= producto.stock) {
-        alert("No puedes agregar más unidades, stock insuficiente.");
+        notify("No puedes agregar más unidades, stock insuficiente.");
         return;
       }
       const actualizado = carrito.map((item) =>

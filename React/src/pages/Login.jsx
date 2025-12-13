@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/users";
 import "../css/Login.css";
+import notify from "../components/solucionador";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -13,12 +14,12 @@ function Login() {
 
     try {
       const res = await loginUser({ username, password });
-      alert(res.message);
+      notify(res.message);
       sessionStorage.setItem("user", JSON.stringify(res.user));
       sessionStorage.setItem("token", res.token);
       navigate("/dashboard");
     } catch (error) {
-      alert(error.message);
+      notify(error.message);
     }
   };
 
@@ -49,12 +50,10 @@ function Login() {
           <button type="submit">Entrar</button>
         </form>
 
-      
         <p className="login-footer">
           ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
         </p>
 
-       
         <p className="login-footer">
           ¿Solo quieres hacer un pedido rápido?{" "}
           <Link to="/pedido-publico">Ir a Pedido Público</Link>

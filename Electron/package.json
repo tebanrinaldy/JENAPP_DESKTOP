@@ -1,31 +1,45 @@
 {
   "name": "jenapp-desktop",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "main": "main.js",
   "type": "commonjs",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
-"build": {
-  "appId": "com.jenapp.desktop",
-  "productName": "JenApp",
-  "asar": true,
-  "directories": {
-    "output": "dist"
-  },
-  "files": [
-    "**/*"
-  ],
-  "extraResources": [
-    {
-      "from": "resources",
-      "to": ""
+  "build": {
+    "appId": "com.jenapp.desktop",
+    "productName": "JenApp",
+    "asar": true, 
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources",
+        "to": ""
+      }
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "tebanrinaldy",
+        "repo": "JENAPP_DESKTOP"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "signAndEditExecutable": false
     }
-  ],
-  "win": {
-    "target": "nsis",
-    "signAndEditExecutable": false
+  },
+  "dependencies": {
+    "electron-updater": "^6.6.2"
+  },
+  "devDependencies": {
+    "electron": "^39.2.6",
+    "electron-builder": "^26.0.12"
   }
-}
 }
