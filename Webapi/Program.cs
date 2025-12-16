@@ -5,7 +5,6 @@ using QuestPDF.Infrastructure;
 using System.Text;
 using Webapi;
 using Webapi.Data;
-using Webapi.Hubs;
 using Webapi.Repositories;
 using Webapi.Services;
 
@@ -38,19 +37,10 @@ builder.WebHost.UseUrls("http://localhost:5132");
 
 builder.Services.AddScoped<JwtTokensGenerator>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<Userservice>();
 builder.Services.AddScoped<Saleservice>();
 builder.Services.AddScoped<Productservice>();
 builder.Services.AddScoped<Inventoryservice>();
 builder.Services.AddScoped<Reportsservice>();
-
-
-builder.Services.AddHttpClient("ollama", c =>
-{
-    c.BaseAddress = new Uri("http://localhost:11434"); 
-});
-
-builder.Services.AddScoped<ChatbotService>();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
@@ -66,7 +56,6 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
-builder.Services.AddSignalR();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -92,7 +81,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<NotificationsHub>("/hub/notifications");
 
 using (var scope = app.Services.CreateScope())
 {

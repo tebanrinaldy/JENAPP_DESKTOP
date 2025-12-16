@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../assets/logo jenweb.png";
 
-// 👇 IMPORTAMOS LOS ICONOS DESDE react-icons/fi
 import {
   FiHome,
   FiShoppingCart,
@@ -10,6 +9,10 @@ import {
   FiBox,
   FiLayers,
   FiBarChart2,
+  FiDollarSign,
+  FiUsers,
+  FiArchive,
+  FiLogIn,
 } from "react-icons/fi";
 
 function Sidebar() {
@@ -39,8 +42,33 @@ function Sidebar() {
           <span>Productos</span>
         </NavLink>
 
-        <NavLink to="/inventario" className="sidebar-btn">
+        <NavLink to="/recaudos" className="sidebar-btn">
+          <FiDollarSign className="icon" />
+          <span>Recaudos M&S</span>
+        </NavLink>
+
+        <NavLink to="/movimientos" className="sidebar-btn">
           <FiLayers className="icon" />
+          <span>Movimientos</span>
+        </NavLink>
+
+        <NavLink to="/cuentas" className="sidebar-btn">
+          <FiArchive className="icon" />
+          <span>Cuentas</span>
+        </NavLink>
+
+        <NavLink to="/fiados" className="sidebar-btn">
+          <FiUsers className="icon" />
+          <span>Fiados</span>
+        </NavLink>
+
+        <NavLink to="/accesos" className="sidebar-btn">
+          <FiLogIn className="icon" />
+          <span>Comfacesar</span>
+        </NavLink>
+
+        <NavLink to="/inventario" className="sidebar-btn">
+          <FiArchive className="icon" />
           <span>Inventario</span>
         </NavLink>
 

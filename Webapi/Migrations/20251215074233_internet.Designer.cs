@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Webapi.Data;
 
@@ -10,35 +11,14 @@ using Webapi.Data;
 namespace Webapi.Migrations
 {
     [DbContext(typeof(Connectioncontextdb))]
-    partial class ConnectioncontextdbModelSnapshot : ModelSnapshot
+    [Migration("20251215074233_internet")]
+    partial class internet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
-
-            modelBuilder.Entity("Webapi.Models.Acceso", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Cedula")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Contrasena")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Accesos");
-                });
 
             modelBuilder.Entity("Webapi.Models.Category", b =>
                 {
@@ -53,21 +33,6 @@ namespace Webapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Cuentas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cuentas");
                 });
 
             modelBuilder.Entity("Webapi.Models.Entregados", b =>
@@ -89,46 +54,6 @@ namespace Webapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Entregados");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Fiados.ClienteFiado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClientesFiados");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Fiados.MovimientoFiado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ClienteFiadoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteFiadoId");
-
-                    b.ToTable("MovimientosFiados");
                 });
 
             modelBuilder.Entity("Webapi.Models.InventoryMovement", b =>
@@ -159,41 +84,6 @@ namespace Webapi.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("InventoryMovement");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Movimientos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CuentasId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("IdCuenta")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuentasId");
-
-                    b.ToTable("Movimientos");
                 });
 
             modelBuilder.Entity("Webapi.Models.Product", b =>
@@ -297,17 +187,6 @@ namespace Webapi.Migrations
                     b.ToTable("SaleDetails");
                 });
 
-            modelBuilder.Entity("Webapi.Models.Fiados.MovimientoFiado", b =>
-                {
-                    b.HasOne("Webapi.Models.Fiados.ClienteFiado", "ClienteFiado")
-                        .WithMany("Movimiento")
-                        .HasForeignKey("ClienteFiadoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ClienteFiado");
-                });
-
             modelBuilder.Entity("Webapi.Models.InventoryMovement", b =>
                 {
                     b.HasOne("Webapi.Models.Product", "Product")
@@ -317,15 +196,6 @@ namespace Webapi.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Movimientos", b =>
-                {
-                    b.HasOne("Webapi.Models.Cuentas", "Cuentas")
-                        .WithMany("Movimientos")
-                        .HasForeignKey("CuentasId");
-
-                    b.Navigation("Cuentas");
                 });
 
             modelBuilder.Entity("Webapi.Models.Product", b =>
@@ -356,16 +226,6 @@ namespace Webapi.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Sale");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Cuentas", b =>
-                {
-                    b.Navigation("Movimientos");
-                });
-
-            modelBuilder.Entity("Webapi.Models.Fiados.ClienteFiado", b =>
-                {
-                    b.Navigation("Movimiento");
                 });
 
             modelBuilder.Entity("Webapi.Models.Sale", b =>

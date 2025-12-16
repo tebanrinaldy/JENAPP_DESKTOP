@@ -25,18 +25,7 @@ function VentaList({ ventas, onVerTicket }) {
                   <p className="mb-1">
                     <strong>Cliente:</strong> {venta.client}
                   </p>
-                  <p className="mb-1">
-                    <strong>Correo:</strong> {venta.email}
-                  </p>
-                  <p className="mb-1">
-                    <strong>Teléfono:</strong> {venta.phone}
-                  </p>
-                  <p className="mb-1">
-                    <strong>Dirección:</strong> {venta.address}
-                  </p>
-                  <p className="mb-1">
-                    <strong>Método de pago:</strong> {venta.paymentMethod}
-                  </p>
+
                   <p className="mb-1">
                     <strong>Total venta:</strong> $
                     {venta.total.toLocaleString()}

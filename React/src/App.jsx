@@ -3,19 +3,21 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Productos from "./pages/Productos.jsx";
 import Venta from "./pages/Venta.jsx";
 import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
 import Categorias from "./pages/Categorias.jsx";
 import Inventario from "./pages/Inventario.jsx";
-import Publico from "./pages/PedidoPublico.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import ReporteVenta from "./pages/ReportesVentas.jsx";
-import SeguimientoPedido from "./pages/SeguimientoPedidoPublico.jsx";
 import useFocusFix from "./components/useFocusFix.js";
+import RecaudosInternet from "./pages/RecaudosInternet.jsx";
+import Movimientos from "./pages/Movimientos.jsx";
+import Cuentas from "./pages/Cuentas.jsx";
+import Fiados from "./pages/Fiados.jsx";
+import Accesos from "./pages/Accesos.jsx";
 
 function StartRoute() {
   const isLogged = Boolean(localStorage.getItem("user"));
-  return <Navigate to={isLogged ? "/dashboard" : "/publico"} replace />;
+  return <Navigate to={isLogged ? "/dashboard" : "/login"} replace />;
 }
 
 function App() {
@@ -23,14 +25,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/publico" element={<Publico />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/seguimiento/:code" element={<SeguimientoPedido />} />
-      <Route
-        path="/seguimiento/telefono/:phone"
-        element={<SeguimientoPedido />}
-      />
 
       <Route element={<MainLayout />}>
         <Route
@@ -78,6 +73,46 @@ function App() {
           element={
             <PrivateRoute>
               <ReporteVenta />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/recaudos"
+          element={
+            <PrivateRoute>
+              <RecaudosInternet />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/movimientos"
+          element={
+            <PrivateRoute>
+              <Movimientos />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cuentas"
+          element={
+            <PrivateRoute>
+              <Cuentas />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fiados"
+          element={
+            <PrivateRoute>
+              <Fiados />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/accesos"
+          element={
+            <PrivateRoute>
+              <Accesos />
             </PrivateRoute>
           }
         />

@@ -49,15 +49,6 @@ function Login() {
 
           <button type="submit">Entrar</button>
         </form>
-
-        <p className="login-footer">
-          ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
-        </p>
-
-        <p className="login-footer">
-          ¿Solo quieres hacer un pedido rápido?{" "}
-          <Link to="/pedido-publico">Ir a Pedido Público</Link>
-        </p>
       </div>
     </div>
   );

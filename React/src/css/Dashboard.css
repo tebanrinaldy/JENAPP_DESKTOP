@@ -3,13 +3,12 @@
   background: radial-gradient(circle at top left, #eef2ff, #f9fafb);
 }
 
-
+/* Cards base */
 .soft-card {
   border: none !important;
   border-radius: 1rem;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
 }
-
 
 .stat-card {
   border-radius: 1rem;
@@ -23,6 +22,7 @@
   gap: 0.25rem;
 }
 
+/* Colores de tarjetas */
 .stat-card-primary {
   background: linear-gradient(135deg, #2563eb, #38bdf8);
   color: white;
@@ -38,11 +38,22 @@
   color: white;
 }
 
+.stat-card-info {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  color: white;
+}
+
+.stat-card-success {
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: white;
+}
+
 .stat-card-alert {
   background: linear-gradient(135deg, #dc2626, #f97316);
   color: white;
 }
 
+/* Texto */
 .stat-label {
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -68,8 +79,10 @@
   padding: 1rem 1.1rem;
   background: white;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
-    border-color 0.12s ease-out, background-color 0.12s ease-out;
+  transition: transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    border-color 0.12s ease-out,
+    background-color 0.12s ease-out;
 }
 
 .stock-card:hover {
@@ -82,6 +95,7 @@
   border-color: #dc2626;
 }
 
+/* Badges */
 .bg-danger-subtle {
   background-color: #fee2e2 !important;
 }

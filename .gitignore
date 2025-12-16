@@ -1,14 +1,20 @@
+# =========================
+# Node / React
+# =========================
 node_modules/
 dist/
 dist-ssr/
+build/
 *.local
 npm-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# =========================
 # Electron
+# =========================
 Electron/node_modules/
-Electron/dist/ 
+Electron/dist/
 Electron/resources/react/
 Electron/resources/api/
 Electron/**/*.exe
@@ -23,6 +29,22 @@ Webapi/bin/
 Webapi/obj/
 *.dll
 *.pdb
+*.user
+
+# =========================
+# Visual Studio
+# =========================
+.vs/
+*.suo
+*.cache
+*.bin
+
+# =========================
+# SQLite / Local DB
+# =========================
+*.db
+*.db-shm
+*.db-wal
 
 # =========================
 # Logs
@@ -38,8 +60,6 @@ logs/
 .idea/
 .DS_Store
 Thumbs.db
-*.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
